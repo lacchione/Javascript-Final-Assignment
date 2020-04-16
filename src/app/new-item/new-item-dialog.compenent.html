@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Add New Store Item!</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Item Name</mat-label>
+        <input matInput placeholder="" [(ngModel)]="data.newStoreItem.item_name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Item Description</mat-label>
+        <input matInput placeholder="" [(ngModel)]="data.newStoreItem.item_desc">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Quantity</mat-label>
+        <input matInput placeholder="" [(ngModel)]="data.newStoreItem.quantity">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button matRipple (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.newStoreItem" cdkFocusInitial>Add New Item!</button>
+</div>
