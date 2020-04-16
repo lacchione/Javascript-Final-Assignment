@@ -16,6 +16,8 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { FormsModule } from '@angular/forms';
           [  { path: 'StoreItem/Newitem', component: NewItemComponent },
                     { path: 'StoreItem', component: StoreListComponent },
                     { path: '', component: HomeComponent },
-                    { path: '**', component: NotFoundComponent }])
+                    { path: '**', component: NotFoundComponent }]),
+      ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [
       NewItemDialogComponent
