@@ -1,6 +1,7 @@
 import {Component, OnInit, Output, EventEmitter, Input, Inject} from '@angular/core';
 import {StoreItem} from '../store-item/store-item-helper';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { StoreitemService } from '../services/storeitem.service';
 
 export interface DialogData {
   newStoreItem: StoreItem;
@@ -17,8 +18,10 @@ export class NewItemComponent implements OnInit {
   @Output() newStoreItemEvent = new EventEmitter<StoreItem>();
   newStoreItem: StoreItem;
   currentId: number;
-  constructor(public dialog: MatDialog) {
+  storeitem: StoreItem[];
+  constructor(public dialog: MatDialog, private storeitemService: StoreitemService) {
     this.resetNewStoreItem();
+    this.storeitem = [];
   }
 
   ngOnInit(): void {
@@ -33,6 +36,10 @@ export class NewItemComponent implements OnInit {
   }
   addContent(): void{
     this.newStoreItemEvent.emit(this.newStoreItem);
+      this.storeitemService.addStoreItem(this.newStoreItem).subscribe(c => {this.storeitem.push(c)
+          const myClonedArray  = Object.assign([], this.storeitem);
+          this.storeitem = myClonedArray;
+      });
     this.resetNewStoreItem();
   }
   openDialog() {
@@ -51,7 +58,7 @@ export class NewItemComponent implements OnInit {
 
 @Component({
     selector: 'new-item-dialog',
-    template: './new-item-dialog.component.html'
+    templateUrl: './new-item-dialog.component.html'
 })
 
 export class NewItemDialogComponent {
